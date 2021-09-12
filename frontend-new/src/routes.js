@@ -1,17 +1,26 @@
-import Index from "views/Index.js";
-import Register from "views/examples/Register.js";
 import Login from "./core/Login";
 import VendorRegister from "vendor/VendorRegister";
 import VendorDashboard from "vendor/VendorDashboard";
 import SetupVendor from "vendor/SetupVendor";
 import AdminVerifyVendor from "./admin/AdminVerifyVendor";
 import AddATurf from "vendor/AddATurf";
+import AdminDashboard from "admin/AdminDashboard";
+import ManageAllTurf from "vendor/ManageAllTurf";
+import ManageATurf from "vendor/ManageATurf";
+import HomePage from "core/HomePage";
 var routes = [
+  {
+    path: "/index",
+    name: "Home",
+    icon: "ni ni-circle-08 text-pink",
+    component: HomePage,
+    layout: "/home",
+  },
   {
     path: "/index",
     name: "Dashboard",
     icon: "ni ni-tv-2 text-primary",
-    component: Index,
+    component: AdminDashboard,
     layout: "/admin",
   },
   {
@@ -28,13 +37,7 @@ var routes = [
     component: Login,
     layout: "/auth",
   },
-  {
-    path: "/register",
-    name: "Register",
-    icon: "ni ni-circle-08 text-pink",
-    component: Register,
-    layout: "/auth",
-  },
+
   {
     path: "/vendor/register",
     name: "Vendor Register",
@@ -61,6 +64,20 @@ var routes = [
     name: "Add Turf",
     icon: "ni ni-circle-08 text-pink",
     component: AddATurf,
+    layout: "/vendor",
+  },
+  {
+    path: "/manage/turf/",
+    name: "Manage Turf",
+    icon: "ni ni-circle-08 text-pink",
+    component: ManageAllTurf,
+    layout: "/vendor",
+  },
+  {
+    path: "/turf/manage/:turfID",
+    name: "Manage A Turf",
+    icon: "ni ni-circle-08 text-pink",
+    component: ManageATurf,
     layout: "/vendor",
   },
 ];

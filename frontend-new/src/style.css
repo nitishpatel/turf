@@ -1,0 +1,8 @@
+td {
+  white-space: unset !important;
+}
+@media screen and (max-width: 726px) {
+  td {
+    white-space: nowrap !important;
+  }
+}

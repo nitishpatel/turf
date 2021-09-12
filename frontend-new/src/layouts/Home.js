@@ -24,16 +24,10 @@ import { Container, Row } from "reactstrap";
 
 import routes from "routes.js";
 
-const Auth = (props) => {
+const Home = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
 
-  React.useEffect(() => {
-    document.body.classList.add("bg-default");
-    return () => {
-      document.body.classList.remove("bg-default");
-    };
-  }, []);
   React.useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
@@ -42,7 +36,7 @@ const Auth = (props) => {
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/auth") {
+      if (prop.layout === "/home") {
         return (
           <Route
             path={prop.layout + prop.path}
@@ -60,8 +54,8 @@ const Auth = (props) => {
     <>
       <div className="main-content" ref={mainContent}>
         {/* Page content */}
-        <Container className="mt-8 pb-5">
-          <Row className="justify-content-center">
+        <Container fluid className="mt-2 pb-5">
+          <Row className="">
             <Switch>
               {getRoutes(routes)}
               <Redirect from="*" to="/auth/login" />
@@ -73,4 +67,4 @@ const Auth = (props) => {
   );
 };
 
-export default Auth;
+export default Home;

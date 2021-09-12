@@ -1,5 +1,6 @@
 from django.db import models
 from api.vendor.models import Vendor
+import uuid
 # Create your models here.
 
 import os
@@ -24,6 +25,7 @@ def path_and_rename(instance, filename):
 
 
 class Turf(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     vendorId = models.ForeignKey(Vendor, verbose_name=(
         "Vendor"), on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
@@ -69,13 +71,3 @@ class TurfPhoto(models.Model):
         Turf, related_name="turf_image", on_delete=models.CASCADE)
     image = models.ImageField(
         upload_to=path_and_rename, max_length=255, null=True, blank=True)
-
-    class Meta:
-        verbose_name = ("ground")
-        verbose_name_plural = ("grounds")
-
-    def __str__(self):
-        return self.name
-
-    def get_absolute_url(self):
-        return reverse("ground_detail", kwargs={"pk": self.pk})

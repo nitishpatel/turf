@@ -22,6 +22,7 @@ const VendorDashboard = () => {
           console.log("STAY");
 
           setState(data[0]);
+          localStorage.setItem("vendor", JSON.stringify(data[0]));
         }
       })
       .then((err) => console.log(err));

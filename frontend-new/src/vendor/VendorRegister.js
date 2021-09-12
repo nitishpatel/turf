@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardBody, Col } from "reactstrap";
+import { Card, CardBody, CardHeader, Col } from "reactstrap";
 import { signup } from "../auth/helper";
 const VendorRegister = () => {
   const [values, setValues] = useState({
@@ -123,6 +123,9 @@ const VendorRegister = () => {
     <>
       <Col lg="5" md="7">
         <Card className="bg-secondary shadow border-0">
+          <CardHeader>
+            <h3>Vendor Registraion</h3>
+          </CardHeader>
           <CardBody className="px-lg-5 py-lg-5">
             {successMessage()}
             {errorMessage()}

@@ -1,16 +1,28 @@
 import { isAuthenticated } from "auth/helper";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import { Col, Form, FormGroup, Input, Label } from "reactstrap";
-import { createTurf, getVendor } from "./helper/vendorapicalls";
+import {
+  createTurf,
+  getVendor,
+  getVendorFromLocalStorage,
+} from "./helper/vendorapicalls";
 const AddATurf = () => {
   var { token, user } = isAuthenticated();
   const [state, setState] = useState();
+  const vendor = getVendorFromLocalStorage();
   useEffect(() => {
     getAVendor();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const getAVendor = () => {
+    if (!vendor || !vendor["isVerified"]) {
+      return Swal.fire("Problem!", "Set up vendor account!", "error").then(
+        () => {
+          window.location = "/vendor/dashboard";
+        }
+      );
+    }
     return getVendor(user["id"])
       .then((data) => {
         if (data.length === 0) {
@@ -39,15 +51,12 @@ const AddATurf = () => {
     setFormData({ ...formData, error: false, [name]: event.target.value });
   };
   const {
-    vendorId,
     name,
     location,
     rules,
     description,
     amenities,
     city,
-    featured,
-    active,
     success,
     error,
   } = formData;
