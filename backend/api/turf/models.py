@@ -65,7 +65,8 @@ class Ground(models.Model):
 
 
 class TurfPhoto(models.Model):
-    turfId = models.ForeignKey(Turf, on_delete=models.CASCADE)
+    turfId = models.ForeignKey(
+        Turf, related_name="turf_image", on_delete=models.CASCADE)
     image = models.ImageField(
         upload_to=path_and_rename, max_length=255, null=True, blank=True)
 

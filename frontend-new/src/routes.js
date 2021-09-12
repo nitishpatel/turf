@@ -5,6 +5,7 @@ import VendorRegister from "vendor/VendorRegister";
 import VendorDashboard from "vendor/VendorDashboard";
 import SetupVendor from "vendor/SetupVendor";
 import AdminVerifyVendor from "./admin/AdminVerifyVendor";
+import AddATurf from "vendor/AddATurf";
 var routes = [
   {
     path: "/index",
@@ -53,6 +54,13 @@ var routes = [
     name: "Vendor setup",
     icon: "ni ni-circle-08 text-pink",
     component: SetupVendor,
+    layout: "/vendor",
+  },
+  {
+    path: "/add/turf/",
+    name: "Add Turf",
+    icon: "ni ni-circle-08 text-pink",
+    component: AddATurf,
     layout: "/vendor",
   },
 ];

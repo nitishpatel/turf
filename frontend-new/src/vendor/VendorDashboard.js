@@ -7,7 +7,8 @@ const VendorDashboard = () => {
   const [state, setState] = useState();
   useEffect(() => {
     getAVendor();
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const getAVendor = () => {
     return getVendor(user["id"])
       .then((data) => {

@@ -41,11 +41,14 @@ class TurfSerializer(serializers.ModelSerializer):
 class TurfListSerializer(serializers.ModelSerializer):
     turf_ground = GroundSerializer(
         read_only=True, many=True, )
+    turf_image = TurfImageSerializer(
+        read_only=True, many=True, )
 
     class Meta:
         model = Turf
         fields = ['id',
                   'turf_ground',
+                  'turf_image',
                   'vendorId',
                   'name',
                   'location',

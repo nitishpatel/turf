@@ -1,9 +1,29 @@
-import React, { useState } from "react";
+import { isAuthenticated } from "auth/helper";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import VendorNavbar from "./VendorNavbar";
+import { Col, Form, FormGroup, Input, Label } from "reactstrap";
+import { createTurf, getVendor } from "./helper/vendorapicalls";
 const AddATurf = () => {
-  const [state, setState] = useState({
-    vendorId: "null",
+  var { token, user } = isAuthenticated();
+  const [state, setState] = useState();
+  useEffect(() => {
+    getAVendor();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const getAVendor = () => {
+    return getVendor(user["id"])
+      .then((data) => {
+        if (data.length === 0) {
+          window.location = "/vendor/setup";
+        } else {
+          console.log("STAY");
+          setState(data[0]);
+        }
+      })
+      .then((err) => console.log(err));
+  };
+  const [formData, setFormData] = useState({
+    vendorId: null,
     name: "",
     location: "",
     rules: "",
@@ -16,7 +36,7 @@ const AddATurf = () => {
     error: false,
   });
   const handleChange = (name) => (event) => {
-    setState({ ...state, error: false, [name]: event.target.value });
+    setFormData({ ...formData, error: false, [name]: event.target.value });
   };
   const {
     vendorId,
@@ -30,11 +50,49 @@ const AddATurf = () => {
     active,
     success,
     error,
-  } = state;
+  } = formData;
   const onSubmit = (event) => {
     event.preventDefault();
 
-    setState({ ...state, error: false });
+    createTurf(
+      {
+        vendorId: state.id,
+        name: name,
+        location: location,
+        rules: rules,
+        description: description,
+        amenities: amenities,
+        city: city,
+        featured: true,
+        active: true,
+      },
+      token
+    )
+      .then((data) => {
+        console.log(data.id);
+        if (data.id) {
+          setFormData({
+            vendorId: null,
+            name: "",
+            location: "",
+            rules: "",
+            description: "",
+            amenities: "",
+            city: "",
+            featured: false,
+            active: false,
+            success: true,
+            error: false,
+          });
+        } else {
+          setFormData({
+            ...state,
+            error: true,
+            success: false,
+          });
+        }
+      })
+      .catch((e) => console.log(e));
   };
   const successMessage = () => {
     return (
@@ -44,11 +102,7 @@ const AddATurf = () => {
             className="alert alert-success"
             style={{ display: success ? "" : "none" }}
           >
-            New Account Created Successfully
-            <Link to="/signin" class="alert-link">
-              {" "}
-              Please Login Here!!
-            </Link>
+            Turf added successfully
           </div>
         </div>
       </div>
@@ -70,57 +124,87 @@ const AddATurf = () => {
   };
   const setupForm = () => {
     return (
-      <div className=" text-left">
-        <form>
-          <div className="form-group">
-            <label>Name</label>
-            <input
-              type="text"
-              className="form-control"
-              value={name}
-              onChange={handleChange("name")}
-            />
-          </div>
-          <div className="form-group">
-            <label>Location</label>
-            <input
-              type="email"
-              className="form-control"
-              value={location}
-              onChange={handleChange("email")}
-            />
-          </div>
-          <div className="form-group">
-            <label>Rules</label>
-            <textarea
-              type="text"
-              className="form-control"
-              value={rules}
-              onChange={handleChange("rules")}
-            />
-          </div>
+      <div className="text-left">
+        <Form className="row">
+          <Col md="6">
+            <FormGroup>
+              <Label for="name">Name</Label>
+              <Input onChange={handleChange("name")} name="name" value={name} />
+            </FormGroup>
+          </Col>
+          <Col md="6">
+            <FormGroup>
+              <Label for="name">Location</Label>
+              <Input
+                onChange={handleChange("location")}
+                name="location"
+                value={location}
+              />
+            </FormGroup>
+          </Col>
+          <Col md="12">
+            <FormGroup>
+              <Label for="exampleText">Rules</Label>
+              <Input
+                type="textarea"
+                name="rules"
+                onChange={handleChange("rules")}
+                value={rules}
+              />
+            </FormGroup>
+          </Col>
+          <Col md="12">
+            <FormGroup>
+              <Label for="exampleText">Description</Label>
+              <Input
+                name="description"
+                type="textarea"
+                onChange={handleChange("description")}
+                value={description}
+              />
+            </FormGroup>
+          </Col>
+          <Col md="12">
+            <FormGroup>
+              <Label for="exampleText">Amenities</Label>
+              <Input
+                type="textarea"
+                name="amenities"
+                onChange={handleChange("amenities")}
+                value={amenities}
+              />
+            </FormGroup>
+          </Col>
+          <Col md="6">
+            <FormGroup>
+              <Label for="exampleText">City</Label>
+              <Input
+                type="text"
+                name="city"
+                onChange={handleChange("city")}
+                value={city}
+              />
+            </FormGroup>
+          </Col>
 
-          <button
-            onClick={onSubmit}
-            className="btn btn-block theme-red text-light"
-          >
-            Submit
-          </button>
-        </form>
+          <Col md="12">
+            <button
+              onClick={onSubmit}
+              className="btn btn-block btn-primary text-light"
+            >
+              Submit
+            </button>
+          </Col>
+        </Form>
       </div>
     );
   };
   return (
     <div className="container-fluid">
-      <div className="row flex-nowrap">
-        <VendorNavbar />
-        <div className="col py-3">
-          <div className="row">
-            <div className="col-lg-12 align-self-center p-4">Add a Turf</div>
-            {setupForm()}
-          </div>
-        </div>
-      </div>
+      <div className="col-lg-12 align-self-center p-4">Add a Turf</div>
+      {successMessage()}
+      {errorMessage()}
+      {setupForm()}
     </div>
   );
 };

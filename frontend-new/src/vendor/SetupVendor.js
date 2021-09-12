@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Container } from "reactstrap";
 import { isAuthenticated } from "../auth/helper";
-import { createVendor } from "./helper/vendorapicalls";
+import { createVendor, getVendor } from "./helper/vendorapicalls";
+import Swal from "sweetalert2";
+
 const SetupVendor = () => {
   var { token, user } = isAuthenticated();
 
@@ -24,6 +26,28 @@ const SetupVendor = () => {
   });
   const handleChange = (name) => (event) => {
     setState({ ...state, error: false, [name]: event.target.value });
+  };
+  useEffect(() => {
+    getAVendor();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const getAVendor = () => {
+    return getVendor(user["id"])
+      .then((data) => {
+        if (data.length === 0) {
+        } else {
+          console.log("STAY");
+
+          Swal.fire(
+            "No Worries!",
+            "You already have setted up vendor account!",
+            "success"
+          ).then(() => {
+            window.location = "/vendor/dashboard";
+          });
+        }
+      })
+      .then((err) => console.log(err));
   };
   const {
     name,

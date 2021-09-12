@@ -23,3 +23,18 @@ export const createVendor = (user, token) => {
     .then((response) => response.json())
     .catch((err) => console.log(err));
 };
+export const createTurf = (user, token) => {
+  console.log(user, token);
+  return fetch(`${API}turf/`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+
+    body: JSON.stringify(user),
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};
