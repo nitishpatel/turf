@@ -55,7 +55,7 @@ const Home = (props) => {
       <div className="main-content" ref={mainContent}>
         {/* Page content */}
         <Container fluid className="mt-2 pb-5">
-          <Row className="">
+          <Row className="justify-content-center">
             <Switch>
               {getRoutes(routes)}
               <Redirect from="*" to="/auth/login" />

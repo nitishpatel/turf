@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   addPhotoToTurf,
+  deleteAPhoto,
   getTurfById,
   getVendorFromLocalStorage,
 } from "./helper/vendorapicalls";
@@ -84,8 +85,18 @@ const ManageATurf = () => {
               } else {
                 var data = new FormData();
                 data.append("image", file);
-                data.append("turfId", turfID);
-                addPhotoToTurf(data, token);
+
+                addPhotoToTurf(data, turfID, token)
+                  .then((res) => {
+                    if (res.message) {
+                      return Swal.fire("Success!", res.message, "success").then(
+                        () => {
+                          window.location.reload();
+                        }
+                      );
+                    }
+                  })
+                  .catch((err) => {});
               }
             }}
           >
@@ -158,20 +169,36 @@ const ManageATurf = () => {
               </CardHeader>
               <CardBody>
                 <Row>
-                  {turf.turf_image ? (
+                  {turf.turf_image && turf.turf_image.length > 0 ? (
                     turf.turf_image.map((photo, index) => {
                       return (
                         <Col lg={3} key={index}>
                           <img
                             src={photo.image}
+                            style={{ width: "100%", minHeight: "200px" }}
                             alt="turf"
-                            className="img-fluid"
+                            onClick={() => {
+                              deleteAPhoto(photo.id, token).then((res) => {
+                                if (res) {
+                                  Swal.fire(
+                                    "Success!",
+                                    res.message,
+                                    "Photo Deleted Successfully!"
+                                  ).then(() => {
+                                    window.location.reload();
+                                  });
+                                }
+                              });
+                            }}
+                            className="img-fluid m-1"
                           />
                         </Col>
                       );
                     })
                   ) : (
-                    <h1>No Photos</h1>
+                    <Col>
+                      <h5>No photos added yet</h5>
+                    </Col>
                   )}
                 </Row>
               </CardBody>

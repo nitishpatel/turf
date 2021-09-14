@@ -17,6 +17,7 @@ import "datatables.net-dt/js/dataTables.dataTables";
 
 import "datatables.net-dt/css/jquery.dataTables.min.css";
 import "./style.css";
+
 ReactDOM.render(
   <BrowserRouter>
     <Switch>

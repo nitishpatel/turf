@@ -42,6 +42,7 @@ const AddATurf = () => {
     description: "",
     amenities: "",
     city: "",
+    price: "",
     featured: false,
     active: false,
     success: false,
@@ -55,6 +56,7 @@ const AddATurf = () => {
     location,
     rules,
     description,
+    price,
     amenities,
     city,
     success,
@@ -71,6 +73,7 @@ const AddATurf = () => {
         rules: rules,
         description: description,
         amenities: amenities,
+        price: price,
         city: city,
         featured: true,
         active: true,
@@ -85,6 +88,7 @@ const AddATurf = () => {
             name: "",
             location: "",
             rules: "",
+            price: "",
             description: "",
             amenities: "",
             city: "",
@@ -192,6 +196,17 @@ const AddATurf = () => {
                 name="city"
                 onChange={handleChange("city")}
                 value={city}
+              />
+            </FormGroup>
+          </Col>
+          <Col md="6">
+            <FormGroup>
+              <Label for="exampleText">Price</Label>
+              <Input
+                type="number"
+                name="price"
+                onChange={handleChange("price")}
+                value={price}
               />
             </FormGroup>
           </Col>

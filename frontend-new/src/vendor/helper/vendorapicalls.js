@@ -55,15 +55,28 @@ export const getTurfById = (turfid) => {
     .catch((err) => console.log(err));
 };
 
-export const addPhotoToTurf = (data, token) => {
-  return fetch(`${API}turfphoto/`, {
+export const addPhotoToTurf = (data, turfID, token) => {
+  for (var value of data) {
+    console.log(value);
+  }
+  return fetch(`${API}turf/createturfphoto/${turfID}`, {
     method: "POST",
     headers: {
-      Accept: "application/json, text/plain, */*",
-      "Content-type": "multipart/form-data",
+      Accept: "application/json",
       Authorization: `Token ${token}`,
     },
     body: data,
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};
+export const deleteAPhoto = (photoID, token) => {
+  return fetch(`${API}turfphoto/${photoID}`, {
+    method: "DELETE",
+    headers: {
+      Accept: "application/json",
+      Authorization: `Token ${token}`,
+    },
   })
     .then((response) => response.json())
     .catch((err) => console.log(err));

@@ -36,6 +36,7 @@ class Turf(models.Model):
     city = models.CharField(max_length=200)
     featured = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
+    price = models.DecimalField(max_digits=6, decimal_places=2)
     slug = AutoSlugField(populate_from='name', unique=True)
 
     class Meta:

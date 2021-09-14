@@ -17,7 +17,7 @@ class TurfImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TurfPhoto
-        fields = ('turfId',
+        fields = ('id', 'turfId',
                   'image',
                   )
 
@@ -32,6 +32,7 @@ class TurfSerializer(serializers.ModelSerializer):
             'name',
             'location',
             'rules',
+            'price',
             'description',
             'amenities',
             'city',
@@ -51,6 +52,7 @@ class TurfListSerializer(serializers.ModelSerializer):
                   'turf_image',
                   'vendorId',
                   'name',
+                  'price',
                   'location',
                   'rules',
                   'description',
