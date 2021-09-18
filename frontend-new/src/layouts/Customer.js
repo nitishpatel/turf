@@ -24,7 +24,7 @@ import { Container } from "reactstrap";
 import routes from "routes.js";
 import BasicNavbar from "../components/Navbars/Navbar";
 
-const Home = (props) => {
+const Customer = (props) => {
   const mainContent = React.useRef(null);
   const location = useLocation();
 
@@ -66,4 +66,4 @@ const Home = (props) => {
   );
 };
 
-export default Home;
+export default Customer;

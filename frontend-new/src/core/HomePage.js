@@ -38,7 +38,12 @@ const HomePage = () => {
         <Row className="justify-content-center">
           {turfList.map((turf) => {
             return (
-              <Col lg="4">
+              <Col
+                lg="4"
+                onClick={() => {
+                  window.location.href = `/home/turf/${turf.id}`;
+                }}
+              >
                 <Card style={{ minHeight: "300px;", maxHeight: "300px;" }}>
                   <CardHeader>
                     <CardImg

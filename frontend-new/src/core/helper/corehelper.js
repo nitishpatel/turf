@@ -10,3 +10,10 @@ export const getAllTurf = () => {
     .then((res) => res.json())
     .catch((err) => console.log(err));
 };
+export const getTurfById = (turfid) => {
+  return fetch(`${API}turf/${turfid}`, {
+    method: "GET",
+  })
+    .then((data) => data.json())
+    .catch((err) => console.log(err));
+};
