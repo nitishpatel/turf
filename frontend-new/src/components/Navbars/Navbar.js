@@ -28,8 +28,9 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
+import { isAuthenticated, signout } from "../../auth/helper";
 const AdminNavbar = () => {
+  const { token } = isAuthenticated();
   return (
     <>
       <Navbar
@@ -62,6 +63,30 @@ const AdminNavbar = () => {
                 <NavLink className="nav-link-icon" to="/" tag={Link}>
                   <span className="nav-link-inner--text">Home</span>
                 </NavLink>
+              </NavItem>
+              <NavItem>
+                {token ? (
+                  <NavLink className="nav-link-icon" to="/auth/" tag={Link}>
+                    <span className="nav-link-inner--text">Dashboard</span>
+                  </NavLink>
+                ) : (
+                  <NavLink className="nav-link-icon" to="/auth/" tag={Link}>
+                    <span className="nav-link-inner--text">Login</span>
+                  </NavLink>
+                )}
+              </NavItem>
+              <NavItem>
+                {token && (
+                  <NavLink
+                    className="nav-link-icon"
+                    onClick={() => {
+                      signout();
+                    }}
+                    tag={Link}
+                  >
+                    <span className="nav-link-inner--text">Logout</span>
+                  </NavLink>
+                )}
               </NavItem>
             </Nav>
           </UncontrolledCollapse>

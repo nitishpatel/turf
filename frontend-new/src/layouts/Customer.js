@@ -36,7 +36,7 @@ const Customer = (props) => {
 
   const getRoutes = (routes) => {
     return routes.map((prop, key) => {
-      if (prop.layout === "/home") {
+      if (prop.layout === "/customer") {
         return (
           <Route
             path={prop.layout + prop.path}

@@ -17,3 +17,18 @@ export const getTurfById = (turfid) => {
     .then((data) => data.json())
     .catch((err) => console.log(err));
 };
+export const createBookingRequest = (data, token) => {
+  console.log(data, token);
+  return fetch(`${API}booking/`, {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};

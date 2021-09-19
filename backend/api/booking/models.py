@@ -8,10 +8,10 @@ import uuid
 from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 STATUS_CHOICES = (
-    ('APPROVED', 'APPROVED'),
+    ('APPROVED_BY_VENDOR', 'APPROVED_BY_VENDOR'),
     ("REQUESTED", "REQUESTED"),
     ("IN_PROGRESS", "IN_PROGRESS"),
-    ("COMPLETED", "COMPLETED"),
+    ("CONFIRMED", "CONFIRMED"),
     ("CANCELLED_BY_USER", "CANCELLED_BY_USER"),
     ("CANCELLED_BY_VENDOR", "CANCELLED_BY_VENDOR"),
 )
@@ -34,7 +34,6 @@ class Booking(models.Model):
     date = models.DateField()
     time = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    description = models.TextField()
     status = models.CharField(
         max_length=100, choices=STATUS_CHOICES, default='REQUESTED')
     payment_method = models.CharField(

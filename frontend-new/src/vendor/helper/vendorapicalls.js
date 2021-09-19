@@ -81,3 +81,31 @@ export const deleteAPhoto = (photoID, token) => {
     .then((response) => response.json())
     .catch((err) => console.log(err));
 };
+
+export const getBookingByVendor = (vendorid, status) => {
+  return fetch(`${API}booking/?vendor=${vendorid}&status=${status}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((data) => data.json())
+    .catch((err) => console.log(err));
+};
+
+export const updateBookingStatus = (bookingID, status, token) => {
+  return fetch(`${API}booking/${bookingID}/`, {
+    method: "PATCH",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Token ${token}`,
+    },
+    body: JSON.stringify({
+      status: status,
+    }),
+  })
+    .then((response) => response.json())
+    .catch((err) => console.log(err));
+};

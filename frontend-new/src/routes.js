@@ -10,6 +10,8 @@ import ManageATurf from "vendor/ManageATurf";
 import HomePage from "core/HomePage";
 import TurfDetails from "core/TurfDetails";
 import CustomerRegistration from "customer/CustomerRegistration";
+import CustomerDashboard from "customer/CustomerDashboard";
+import ManageBookings from "vendor/ManageBookings";
 var routes = [
   {
     path: "/index",
@@ -83,6 +85,13 @@ var routes = [
     layout: "/vendor",
   },
   {
+    path: "/bookings",
+    name: "Manage Bookings",
+    icon: "ni ni-circle-08 text-pink",
+    component: ManageBookings,
+    layout: "/vendor",
+  },
+  {
     path: "/turf/:turfID",
     name: "Turf Details",
     icon: "ni ni-circle-08 text-pink",
@@ -95,6 +104,13 @@ var routes = [
     icon: "ni ni-circle-08 text-pink",
     component: CustomerRegistration,
     layout: "/auth",
+  },
+  {
+    path: "/dashboard",
+    name: "Customer Dashboard",
+    icon: "ni ni-circle-08 text-pink",
+    component: CustomerDashboard,
+    layout: "/customer",
   },
 ];
 export default routes;

@@ -11,7 +11,7 @@ class BookingViewSet(viewsets.ModelViewSet):
     queryset = Booking.objects.all().order_by('id')
     serializer_class = BookingSerializer
     filter_backends = (DjangoFilterBackend,)
-    filter_fields = ['vendorId', 'vendor', 'user']
+    filter_fields = ['turf', 'vendor', 'user', 'status']
 
     def get_serializer_class(self, *args, **kwargs):
         if self.request.method == 'POST':

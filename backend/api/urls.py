@@ -20,6 +20,7 @@ urlpatterns = [
     path('turf/', include('api.turf.urls')),
     path('booking/', include('api.booking.urls')),
     path('ground/', include(ground.urls)),
+    path('orders/', include("api.orders.urls")),
     path('turfphoto/', include(turfphoto.urls)),
 
     path('api-token-auth/', views.obtain_auth_token),

@@ -56,12 +56,8 @@ export const isVendor = () => {
   if (localStorage.getItem("jwt")) {
     var jwt = JSON.parse(localStorage.getItem("jwt"));
     var isVendor = jwt["user"]["isVendor"];
-    if (isVendor) {
-      return isVendor;
-    } else {
-      return false;
-    }
-    //TODO: compare JWT with database json token
+
+    return isVendor;
   } else {
     return false;
   }

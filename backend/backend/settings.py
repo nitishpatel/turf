@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     "api.user",
     "api.vendor",
     "api.turf",
-    "api.booking"
+    "api.booking",
+    "api.orders",
 ]
 
 

@@ -69,10 +69,10 @@ const Login = () => {
       if (isAdmin()) {
         return <Redirect to="/admin/dashboard" />;
       } else {
-        if (isVendor) {
+        if (isVendor()) {
           return <Redirect to="/vendor/dashboard" />;
         } else {
-          return <Redirect to="/user/dashboard" />;
+          return <Redirect to="/customer/dashboard" />;
         }
       }
     }
